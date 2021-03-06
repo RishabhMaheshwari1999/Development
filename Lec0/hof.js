@@ -21,3 +21,5 @@ function sayHi( fullName  , fun  ){
 sayHi("TONY STARK" , getFirstName);
 sayHi("BRUCE BANNER" ,  getLastName);
 //so the output will be tony banner
+
+//if we make both the function of same name then the last function that have same name it will work .
