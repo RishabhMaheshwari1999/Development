@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
+    font-family: 'Lato', sans-serif;
   }
   
   .content {
@@ -32,6 +33,7 @@
     height: 18px;
     width: 30px;
     border-radius: 9px;
+    /* opacity: 0.5; */
   }
   
   .red {
@@ -45,6 +47,9 @@
   }
   .black {
     background: #34495e !important;
+  }
+  .filter:hover{
+    /* opacity: 1; */
   }
   .ticket-actions {
     height: 43%;
@@ -87,9 +92,13 @@
     align-items: center;
   }
   .tickets-container {
-    height: 90vh;
-  
+    min-height: 90vh;
     background: #ecf0f1;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    grid-gap: 20px;
   }
   .red:hover{
     transform: scale(1.2);
@@ -123,7 +132,7 @@
     outline: none;
     padding: 2rem;
     font-size: 2rem;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     overflow: auto;
   }
   .modal-filter-options{
@@ -137,10 +146,10 @@
   }
   .modal-filter{
     height: 15%;
-  width: 70%;
-  opacity: 0.5;
-  transition: transform 0.5s;
-  border-radius: 23px;
+    width: 70%;
+    opacity: 0.5;
+  /* transition: transform 0.5s; */
+  /* border-radius: 23px; */
   }
   .modal-filter:hover{
     opacity: 1;
