@@ -7,9 +7,18 @@
     <title>IndexDB Demo</title>
 </head>
 <body>
-    DataBase-Name <input id="database-name" type="text">
-    Version <input id="version" type="text">
-    <button id="openDB">Open-Database</button>
+    <div>
+        DataBase-Name <input id="database-name" type="text">
+        Version <input id="version" type="text">
+        <button id="openDB">Open-Database</button>
+    </div>
+
+    <div>
+        mid <input id="media-id" type="text">
+        type <input id="media-type" type="text">
+       <button id="addMedia">Add Media</button>
+    </div>
+
     <script>
         let db;
         let dbName = document.querySelector("#database-name");
@@ -17,25 +26,43 @@
         let openBttn = document.querySelector("#openDB")
         
 
+        let mid = document.querySelector("#media-id");
+        let mediaType = document.querySelector("#media-type");
+        let addMediaBtn = document.querySelector("#addMedia");
+
+
+
         openBttn.addEventListener("click",opendb);
+        addMediaBtn.addEventListener("click" , addMedia);
+
+        function addMedia(){
+            let txn = db.transaction("Media","readwrite");
+            let mediastore = txn.objectStore("Media");
+            mediastore.add({mid:mid.value , type:mediaType.value});
+            txn.onerror = function(e){
+                alert("txn failed");
+                console.log("txn failed !!");
+                console.log(e);
+            }
+        }
+
         function opendb(){
-            let dbRequest = indexedDB.open(dbName.value,dbVersion.value);
+            // db open // create db
+            let dbRequest = indexedDB.open( dbName.value  , dbVersion.value);
+            dbRequest.onupgradeneeded = function(e){
+                alert("In Upgrade Event");
+                // console.log(e);
+                db = e.target.result;
+                let mediaTable = db.createObjectStore("Media" , {keyPath : "mid"});
+            };
             dbRequest.onsuccess = function(e){
                 alert("In Success Event");
                 db = e.target.result;
                 console.log(db);
             };
-
-            dbRequest.onupgradeneeded = function(e){
-                alert("In Upgrade Event");
-                db = e.target.result;
-                let mediaTable = db.createObjectStore("Media",{keyPath:"mid"});
-                
-            };
-
             dbRequest.onerror = function(e){
-                alert("In Error Event");
-                console.log(db); 
+                alert("In Error Event !");
+                console.log(e);
             };
         }
 
