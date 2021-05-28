@@ -22,6 +22,12 @@
             db = e.target.result;
             console.log(db);
         };
+
+        dbRequest.onerror = function(e){
+            console.log("In Error Event");
+            db = e.target.result;
+            console.log(db); 
+        };
     </script>
 
 </body>
