@@ -7,27 +7,39 @@
     <title>IndexDB Demo</title>
 </head>
 <body>
+    DataBase-Name <input id="database-name" type="text">
+    Version <input id="version" type="text">
+    <button id="openDB">Open-Database</button>
     <script>
         let db;
-        let dbRequest = indexedDB.open("Tony");
+        let dbName = document.querySelector("#database-name");
+        let dbVersion = document.querySelector("#version");
+        let openBttn = document.querySelector("#openDB")
+        
 
-        dbRequest.onsuccess = function(e){
-            console.log("In Success Event");
-            db = e.target.result;
-            console.log(db);
-        };
+        openBttn.addEventListener("click",opendb);
+        function opendb(){
+            let dbRequest = indexedDB.open(dbName.value,dbVersion.value);
+            dbRequest.onsuccess = function(e){
+                alert("In Success Event");
+                db = e.target.result;
+                console.log(db);
+            };
 
-        dbRequest.onupgradeneeded = function(e){
-            console.log("In Upgrade Event");
-            db = e.target.result;
-            console.log(db);
-        };
+            dbRequest.onupgradeneeded = function(e){
+                alert("In Upgrade Event");
+                db = e.target.result;
+                let mediaTable = db.createObjectStore("Media",{keyPath:"mid"});
+                
+            };
 
-        dbRequest.onerror = function(e){
-            console.log("In Error Event");
-            db = e.target.result;
-            console.log(db); 
-        };
+            dbRequest.onerror = function(e){
+                alert("In Error Event");
+                console.log(db); 
+            };
+        }
+
+        
     </script>
 
 </body>
